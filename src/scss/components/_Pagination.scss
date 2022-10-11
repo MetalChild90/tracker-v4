@@ -1,0 +1,36 @@
+.pagination-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  list-style: none;
+}
+
+.pagination-list-item {
+  width: 30px;
+  height: 30px;
+
+  margin: 2px;
+  border: 1px solid rgb(141, 142, 201);
+
+  text-align: center;
+  line-height: 30px;
+
+  font-size: 15px;
+  border-radius: 5px;
+  background-color: white;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.pagination-list-item:hover {
+  background-color: rgb(166, 167, 243);
+}
+
+.pagination-link {
+  text-decoration: none;
+  color: black;
+}
+
+.activePage {
+  background-color: rgb(193, 207, 255);
+}

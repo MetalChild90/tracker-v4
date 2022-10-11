@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap");
+
+.coin-box {
+  position: relative;
+  min-width: 350px;
+  margin: $superSmall;
+  padding: $small;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid grey;
+  border-radius: $brrSmall;
+  background-color: $lighter-dark-grey;
+  transition-duration: $trd;
+
+  @media (max-width: 576px) {
+    width: 70%;
+  }
+  @media (max-width: 768px) {
+    width: 50%;
+  }
+  @media (min-width: 768px) {
+    width: 30%;
+  }
+
+  & .info-box {
+    width: 85%;
+    text-align-last: left;
+    & .feature-title {
+      opacity: 0.4;
+      margin-bottom: $superSmall;
+    }
+    & .feature-value {
+      display: block;
+      font-size: 18px;
+      margin-bottom: $small;
+    }
+  }
+
+  & .close-selected-box {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+}
+
+input[type="number"] {
+  height: 40px;
+  border-radius: $brrSmall;
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  color: $black;
+}
+
+.isWatched {
+  background-color: $green-opacity-dark;
+}
+
+.target-hitted {
+  background-color: rgba(255, 50, 50, 0.4);
+}
+
+.alert-zone {
+  background-color: rgba(229, 250, 44, 0.4);
+}

@@ -1,0 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap");
+
+body {
+  text-align: center;
+  font-family: "Lato", sans-serif;
+  background-color: $dark-grey;
+  color: $white;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+
+  max-width: 1300px;
+  min-height: 100vh;
+  height: auto;
+  margin: 0 auto;
+  padding: 50px;
+
+  text-align: center;
+
+  @media (max-width: 768px) {
+    min-height: 130vh;
+    padding: 0;
+  }
+}
+
+.box-beneath-header {
+  height: 100px;
+}
+
+.btn {
+  text-transform: uppercase;
+  padding: 10px;
+  border: 1px solid $black;
+  border-radius: $brrSmall;
+  font-size: 14px;
+  background-color: aliceblue;
+  transition: $trd;
+  color: $black;
+  cursor: pointer;
+}
+
+.btn-delete {
+  background-color: rgba(238, 77, 77, 0.925);
+}
+
+.btn-discard {
+  background-color: rgba(238, 182, 77, 0.925);
+  @media (min-width: 992px) {
+    font-size: 10px;
+  }
+}
+
+.btn-save {
+  background-color: rgb(45, 165, 81);
+  @media (min-width: 992px) {
+    font-size: 10px;
+  }
+}
+
+.btn-full-width {
+  width: 100%;
+}
+
+.btn:hover {
+  background-color: rgb(211, 227, 241);
+}
+
+.title {
+  margin-bottom: 40px;
+  font-size: 25px;
+
+  @media (max-width: 576px) {
+    margin-top: 20px;
+    font-size: 20px;
+  }
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+input {
+  background-color: $white;
+}
+
+.notification {
+  margin: $superSmall 0;
+  color: $pink;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+
+  @media (min-width: 992px) {
+    width: 85%;
+  }
+  @media (min-width: 1200px) {
+    width: 60%;
+  }
+  @media (min-width: 1400px) {
+    width: 50%;
+  }
+}
+
+th,
+td {
+  height: 50px;
+  border-bottom: 1px solid rgba(211, 211, 211, 0.445);
+}
+
+td {
+  text-align: center;
+}
+
+tr {
+  transition: $trd;
+}
+
+tbody > tr:hover {
+  background-color: $green-opacity-light;
+}
+
+.isWatched {
+  background-color: $green-opacity-dark;
+}
+
+.coins-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  margin: 30px 0 20px;
+}
+
+.ml {
+  margin-left: $superSmall;
+}
+
+.mt {
+  margin-top: $superSmall;
+}

@@ -1,0 +1,18 @@
+@mixin posaTopLeft {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin centerAbsolute {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

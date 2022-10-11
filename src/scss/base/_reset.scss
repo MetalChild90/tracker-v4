@@ -1,0 +1,41 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+}
+
+a {
+  color: $white;
+  text-decoration: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+  border: 0;
+  outline: none;
+}
+
+button {
+  outline: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+textarea {
+  border: 0;
+  outline: none;
+}

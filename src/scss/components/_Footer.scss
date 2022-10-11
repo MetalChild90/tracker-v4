@@ -1,0 +1,12 @@
+.Footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: $small;
+  margin-top: $normal;
+  text-align: center;
+  background-color: $darker-grey;
+  color: $white;
+  z-index: 2;
+}
