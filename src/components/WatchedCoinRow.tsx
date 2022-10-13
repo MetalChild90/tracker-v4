@@ -4,9 +4,22 @@ import type { RootState } from "../store/index";
 import { layoutActions } from "../store/layout";
 import { coinsActions } from "../store/coins";
 import PriceTargetForm from "./PriceTargetForm";
-import { Root } from "react-dom/client";
 
-function WatchedCoinRow({ coin }) {
+interface CoinInterface {
+  id: string | undefined;
+  name?: string | undefined;
+  price?: number | undefined;
+  current_price?: number;
+  priceTarget?: number | undefined;
+  ath?: number | undefined;
+  distancePercent?: number | undefined;
+}
+
+interface CoinRowProps {
+  coin: CoinInterface;
+}
+
+function WatchedCoinRow({ coin }: CoinRowProps) {
   const dispatch = useAppDispatch();
   const editMode = useAppSelector((state: RootState) => state.coins.editMode);
   const selectedCoin = useAppSelector(
@@ -21,9 +34,9 @@ function WatchedCoinRow({ coin }) {
   return (
     <tr
       className={`item ${
-        coin.distancePercent >= 0
+        coin.distancePercent! >= 0
           ? "target-hitted"
-          : coin.distancePercent >= -10
+          : coin.distancePercent! >= -10
           ? "alert-zone"
           : ""
       }`}

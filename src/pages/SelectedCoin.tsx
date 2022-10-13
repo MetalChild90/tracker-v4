@@ -20,8 +20,8 @@ function SelectedCoin() {
   useEffect(() => {
     const fetchCoin = async () => {
       dispatch(coinsActions.setLoading());
-      const coin = await getCoin(params.id);
-      dispatch(coinsActions.setSelectedCoin(coin));
+      const coin = await getCoin(params.id!);
+      dispatch(coinsActions.setSelectedCoin(coin!));
     };
 
     fetchCoin();
@@ -40,7 +40,7 @@ function SelectedCoin() {
     <div className="selected-coin-box">
       <h2 className="title">Add coin to watched list</h2>
       <CoinCard
-        coin={selectedCoin}
+        coin={selectedCoin!}
         type="selected"
         handleClose={closeSelectedCoin}
       />

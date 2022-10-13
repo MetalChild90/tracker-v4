@@ -1,5 +1,13 @@
-const isTokenWatched = (watchedCoins, id) => {
-  const result = watchedCoins.filter((coin) => coin.id === id);
+interface WatchedCoinsInterface {
+  id: string | undefined;
+  priceTarget: number | undefined;
+}
+
+const isTokenWatched = (
+  watchedCoins: WatchedCoinsInterface[] | undefined,
+  id: string
+) => {
+  const result = watchedCoins!.filter((coin) => coin.id === id);
   return result.length > 0 ? true : false;
 };
 

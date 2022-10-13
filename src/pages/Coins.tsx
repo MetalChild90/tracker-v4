@@ -9,7 +9,7 @@ import CoinRow from "../components/CoinRow";
 import CoinCard from "../components/CoinCard";
 import Spinner from "../components/Spinner";
 
-function AllCoins() {
+function Coins() {
   const dispatch = useAppDispatch();
   const loading = useAppSelector((state: RootState) => state.coins.loading);
   const coins = useAppSelector((state: RootState) => state.coins.coins);
@@ -47,13 +47,13 @@ function AllCoins() {
                 </tr>
               </thead>
               <tbody>
-                {coins.map((coin) => (
+                {coins!.map((coin) => (
                   <CoinRow key={coin.id} coin={coin} />
                 ))}
               </tbody>
             </table>
           ) : (
-            coins.map((coin) => (
+            coins!.map((coin) => (
               <CoinCard key={coin.id} coin={coin} type="allcoins" />
             ))
           )}
@@ -65,4 +65,4 @@ function AllCoins() {
   );
 }
 
-export default AllCoins;
+export default Coins;

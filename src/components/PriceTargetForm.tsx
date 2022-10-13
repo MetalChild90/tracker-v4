@@ -4,7 +4,16 @@ import { useAppSelector, useAppDispatch } from "../hooks/typescriptHooks";
 import type { RootState } from "../store/index";
 import { coinsActions } from "../store/coins";
 
-function PriceTargetForm({ type }) {
+// interface WatchedCoinsInterface {
+//   id: string | undefined;
+//   priceTarget: number | undefined;
+// }
+
+interface CoinRowProps {
+  type?: string;
+}
+
+function PriceTargetForm({ type }: CoinRowProps) {
   const dispatch = useAppDispatch();
   const editMode = useAppSelector((state: RootState) => state.coins.editMode);
   const watchedCoins = useAppSelector(
@@ -14,60 +23,58 @@ function PriceTargetForm({ type }) {
     (state: RootState) => state.coins.selectedCoin
   );
 
-  const [priceTarget, setPriceTarget] = useState(0);
+  const [priceTarget, setPriceTarget] = useState<number | undefined>(0);
   const [priceTargetErrorNotification, setPriceTargetErrorNotification] =
     useState("");
 
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setPriceTarget(e.target.value);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPriceTarget(+e.target.value);
   };
 
   useEffect(() => {
     setPriceTarget(selectedCoin?.priceTarget);
   }, [editMode, selectedCoin?.priceTarget]);
 
-  const handleSave = (e) => {
+  const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (priceTarget <= 0 || isNaN(priceTarget)) {
+    if (priceTarget! <= 0 || isNaN(priceTarget!)) {
       setPriceTargetErrorNotification("Price target can't be 0");
       return;
     } else {
       if (editMode) {
-        const updatedWatchedCoins = watchedCoins.map((coin) =>
-          coin.id === selectedCoin.id ? { ...selectedCoin, priceTarget } : coin
+        const updatedWatchedCoins = watchedCoins!.map((coin) =>
+          coin.id === selectedCoin!.id ? { ...selectedCoin, priceTarget } : coin
         );
         dispatch(coinsActions.saveEdition(updatedWatchedCoins));
       } else {
         const newWatchedCoin = {
-          id: selectedCoin.id,
-          priceTarget: parseFloat(priceTarget),
+          id: selectedCoin!.id,
+          priceTarget: priceTarget,
         };
-        const appendedWatchedCoins = [...watchedCoins, newWatchedCoin];
+        const appendedWatchedCoins = watchedCoins?.push(newWatchedCoin);
         dispatch(coinsActions.addToWatchedList(appendedWatchedCoins));
         navigate("/watched-coins");
       }
     }
   };
 
-  const maxLengthCheck = (object) => {
-    if (object.target.value.length > object.target.maxLength) {
-      object.target.value = object.target.value.slice(
-        0,
-        object.target.maxLength
-      );
+  const maxLengthCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const obj = e.target;
+    if (obj.value.length > obj.maxLength) {
+      obj.value = obj.value.slice(0, obj.maxLength);
     }
   };
 
   return (
     <div className="price-target-form">
       <form
-        // style={{ flexDirection: !editMode ? "row" : "column" }}
+        style={{ flexDirection: !editMode ? "row" : "column" }}
         onSubmit={handleSave}
       >
         <input
-          maxLength="12"
+          maxLength={12}
           onInput={maxLengthCheck}
           type="number"
           value={priceTarget || ""}

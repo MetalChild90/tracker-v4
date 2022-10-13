@@ -4,7 +4,16 @@ import { useAppSelector } from "../hooks/typescriptHooks";
 import type { RootState } from "../store/index";
 import capitalizeToken from "../helpers/capitalizeToken";
 import isTokenWatched from "../helpers/isTokenWatched";
-import PropTypes from "prop-types";
+
+interface CoinInterface {
+  id: string | undefined;
+  name?: string | undefined;
+  price?: number | undefined;
+  current_price?: number;
+  priceTarget?: number | undefined;
+  ath?: number | undefined;
+  distancePercent?: number | undefined;
+}
 
 function SearchBox() {
   const allCoins = useAppSelector((state: RootState) => state.coins.allCoins);
@@ -13,40 +22,41 @@ function SearchBox() {
   );
 
   const [typedCoin, setTypedCoin] = useState("");
-  const [hints, setHints] = useState([]);
+  const [hints, setHints] = useState<CoinInterface[] | null>(null);
   const [textNotification, setTextNotification] = useState("");
 
   const navigate = useNavigate();
 
-  const lookForSimilar = (typedName) => {
-    let foundCoins = allCoins.filter((coin) =>
-      coin.name.toLowerCase().startsWith(typedName.toLowerCase()) ? coin : ""
+  const lookForSimilar = (typedName: string) => {
+    let foundCoins: CoinInterface[] = allCoins!.filter((coin) =>
+      coin!.name!.toLowerCase().startsWith(typedName.toLowerCase()) ? coin : ""
     );
     foundCoins = foundCoins.slice(0, 10);
     setHints(foundCoins);
   };
 
-  function handleChange(e) {
-    setTypedCoin(e.target.value);
-    lookForSimilar(e.target.value);
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const typedName = e.target.value;
+    setTypedCoin(typedName);
+    lookForSimilar(typedName);
     if (e.target.value === "") {
       setHints([]);
     }
   }
 
-  function validateToken(token) {
+  function validateToken(token: string) {
     setHints([]);
 
     const capitalizedToken = capitalizeToken(token);
 
-    const isTokenExist = allCoins.filter(
+    const isTokenExist = allCoins!.filter(
       (coin) => coin.name === capitalizedToken
     );
     console.log(isTokenExist);
     const tokenId = isTokenExist[0]?.id;
     console.log(tokenId);
 
-    const isWatched = isTokenWatched(watchedCoins, tokenId);
+    const isWatched = isTokenWatched(watchedCoins, tokenId!);
     console.log(isWatched);
     if (typedCoin === "") {
       setTextNotification("Please, enter name of the coin");
@@ -63,7 +73,7 @@ function SearchBox() {
     }
   }
 
-  function handleKeyDown(e) {
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {
       validateToken(typedCoin);
     }
@@ -99,12 +109,12 @@ function SearchBox() {
         >
           Search
         </span>
-        {hints.length > 0 && (
+        {hints!.length > 0 && (
           <div className="hints-box">
-            {hints.map((hint, i) => (
+            {hints!.map((hint, i) => (
               <p
                 className="hint"
-                onClick={() => validateToken(hint.name)}
+                onClick={() => validateToken(hint.name!)}
                 key={i}
               >
                 {hint.name}
@@ -124,11 +134,5 @@ function SearchBox() {
     </div>
   );
 }
-
-SearchBox.propTypes = {
-  addCoin: PropTypes.func,
-  selectedCoin: PropTypes.object,
-  watchedCoinIds: PropTypes.array,
-};
 
 export default SearchBox;

@@ -9,6 +9,16 @@ import Spinner from "../components/Spinner";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import getUpdateWatchedCoinsData from "../helpers/getUpdateWatchedCoinsData";
 
+interface CoinInterface {
+  id: string | undefined;
+  name?: string | undefined;
+  price?: number | undefined;
+  current_price?: number;
+  priceTarget?: number | undefined;
+  ath?: number | undefined;
+  distancePercent?: number | undefined;
+}
+
 function WatchedCoins() {
   const dispatch = useAppDispatch();
   const watchedCoins = useAppSelector(
@@ -22,14 +32,20 @@ function WatchedCoins() {
     (state: RootState) => state.coins.priceTarget
   );
 
-  const [updatedWatchedCoins, setUpdatedWatchedCoins] = useState([]);
-  const [sortedWatchedCoins, setSortedWatchedCoins] = useState([]);
+  const [updatedWatchedCoins, setUpdatedWatchedCoins] = useState<
+    CoinInterface[]
+  >([]);
+  const [sortedWatchedCoins, setSortedWatchedCoins] = useState<CoinInterface[]>(
+    []
+  );
 
   const { width } = useWindowDimensions();
 
   useEffect(() => {
     async function getCoinsData() {
-      const fetchedCoins = await getUpdateWatchedCoinsData(watchedCoins);
+      const fetchedCoins: CoinInterface[] = await getUpdateWatchedCoinsData(
+        watchedCoins
+      );
       setUpdatedWatchedCoins(fetchedCoins);
     }
 
@@ -47,7 +63,7 @@ function WatchedCoins() {
 
   useEffect(() => {
     const sortedWatchedCoins = updatedWatchedCoins.sort(
-      (a, b) => b.distancePercent - a.distancePercent
+      (a, b) => b.distancePercent! - a.distancePercent!
     );
     setSortedWatchedCoins(sortedWatchedCoins);
     dispatch(coinsActions.cancelLoading());

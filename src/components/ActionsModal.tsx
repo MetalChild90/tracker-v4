@@ -17,12 +17,12 @@ function ActionsModal() {
   };
 
   const handleEditClick = () => {
-    dispatch(coinsActions.openEditMode(selectedCoin.priceTarget));
+    dispatch(coinsActions.openEditMode(selectedCoin!.priceTarget!));
   };
 
   const handleDeleteClick = () => {
-    const newWatchedCoins = watchedCoins.filter(
-      (coin) => coin.id !== selectedCoin.id
+    const newWatchedCoins = watchedCoins!.filter(
+      (coin) => coin.id !== selectedCoin!.id
     );
     console.log(newWatchedCoins);
     dispatch(coinsActions.deleteCoin(newWatchedCoins));

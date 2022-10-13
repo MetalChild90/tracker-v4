@@ -2,23 +2,26 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface CoinInterface {
-  id: string;
-  name: string;
-  price: number;
-  ath?: number;
+  id: string | undefined;
+  name?: string | undefined;
+  price?: number | undefined;
+  current_price?: number;
+  priceTarget?: number | undefined;
+  ath?: number | undefined;
+  distancePercent?: number | undefined;
 }
 
 interface WatchedCoinsInterface {
-  id: string;
-  priceTarget: number;
+  id: string | undefined;
+  priceTarget: number | undefined;
 }
 
 interface CoinsState {
   selectedCoin: CoinInterface | null;
   coins: CoinInterface[] | null;
-  allCoins: string[];
+  allCoins: CoinInterface[] | null;
   priceTarget: number;
-  watchedCoins: WatchedCoinsInterface[] | null;
+  watchedCoins: WatchedCoinsInterface[] | undefined;
   loading: boolean;
   editMode: boolean;
 }
@@ -41,7 +44,7 @@ const coinsSlice = createSlice({
       state.coins = action.payload;
       state.loading = false;
     },
-    getAllCoins(state, action: PayloadAction<string[]>) {
+    getAllCoins(state, action: PayloadAction<CoinInterface[]>) {
       state.allCoins = action.payload;
       state.loading = false;
     },
@@ -59,7 +62,10 @@ const coinsSlice = createSlice({
     cancelLoading(state) {
       state.loading = false;
     },
-    addToWatchedList(state, action: PayloadAction<WatchedCoinsInterface[]>) {
+    addToWatchedList(
+      state,
+      action: PayloadAction<WatchedCoinsInterface[] | undefined>
+    ) {
       state.watchedCoins = action.payload;
       state.priceTarget = 0;
       state.selectedCoin = null;

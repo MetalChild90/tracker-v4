@@ -14,11 +14,11 @@ const Pagination = () => {
 
   const pageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil(allCoins.length / coinsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(allCoins!.length / coinsPerPage); i++) {
     pageNumbers.push(i);
   }
 
-  function paginate(pageNumber) {
+  function paginate(pageNumber: number) {
     dispatch(paginationActions.setCurrentPage(pageNumber));
   }
 
