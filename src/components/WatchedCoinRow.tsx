@@ -6,7 +6,7 @@ import { coinsActions } from "../store/coins";
 import PriceTargetForm from "./PriceTargetForm";
 
 interface CoinInterface {
-  id: string | undefined;
+  id?: string | undefined;
   name?: string | undefined;
   price?: number | undefined;
   current_price?: number;

@@ -10,7 +10,7 @@ import useWindowDimensions from "../hooks/useWindowDimensions";
 import getUpdateWatchedCoinsData from "../helpers/getUpdateWatchedCoinsData";
 
 interface CoinInterface {
-  id: string | undefined;
+  id?: string | undefined;
   name?: string | undefined;
   price?: number | undefined;
   current_price?: number;

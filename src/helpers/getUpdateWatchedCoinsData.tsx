@@ -2,12 +2,12 @@ import { getCoin } from "../AppActions";
 import calculatePercent from "./calculatePercent";
 
 interface WatchedCoinsInterface {
-  id: string | undefined;
+  id?: string | undefined;
   priceTarget: number | undefined;
 }
 
 interface CoinInterface {
-  id: string | undefined;
+  id?: string | undefined;
   name?: string | undefined;
   price?: number | undefined;
   current_price?: number;

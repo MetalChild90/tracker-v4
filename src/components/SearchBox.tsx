@@ -6,7 +6,7 @@ import capitalizeToken from "../helpers/capitalizeToken";
 import isTokenWatched from "../helpers/isTokenWatched";
 
 interface CoinInterface {
-  id: string | undefined;
+  id?: string | undefined;
   name?: string | undefined;
   price?: number | undefined;
   current_price?: number;
@@ -22,7 +22,7 @@ function SearchBox() {
   );
 
   const [typedCoin, setTypedCoin] = useState("");
-  const [hints, setHints] = useState<CoinInterface[] | null>(null);
+  const [hints, setHints] = useState<CoinInterface[] | null>([]);
   const [textNotification, setTextNotification] = useState("");
 
   const navigate = useNavigate();

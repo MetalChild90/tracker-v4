@@ -4,10 +4,10 @@ import { useAppSelector, useAppDispatch } from "../hooks/typescriptHooks";
 import type { RootState } from "../store/index";
 import { coinsActions } from "../store/coins";
 
-// interface WatchedCoinsInterface {
-//   id: string | undefined;
-//   priceTarget: number | undefined;
-// }
+interface WatchedCoinsInterface {
+  id?: string | undefined;
+  priceTarget: number | undefined;
+}
 
 interface CoinRowProps {
   type?: string;
@@ -44,8 +44,11 @@ function PriceTargetForm({ type }: CoinRowProps) {
       return;
     } else {
       if (editMode) {
-        const updatedWatchedCoins = watchedCoins!.map((coin) =>
-          coin.id === selectedCoin!.id ? { ...selectedCoin, priceTarget } : coin
+        const updatedWatchedCoins: WatchedCoinsInterface[] = watchedCoins!.map(
+          (coin) =>
+            coin.id === selectedCoin!.id
+              ? { ...selectedCoin, priceTarget }
+              : coin
         );
         dispatch(coinsActions.saveEdition(updatedWatchedCoins));
       } else {
@@ -53,7 +56,7 @@ function PriceTargetForm({ type }: CoinRowProps) {
           id: selectedCoin!.id,
           priceTarget: priceTarget,
         };
-        const appendedWatchedCoins = watchedCoins?.push(newWatchedCoin);
+        const appendedWatchedCoins = watchedCoins?.concat(newWatchedCoin);
         dispatch(coinsActions.addToWatchedList(appendedWatchedCoins));
         navigate("/watched-coins");
       }

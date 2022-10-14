@@ -7,7 +7,7 @@ import { layoutActions } from "../store/layout";
 import { coinsActions } from "../store/coins";
 
 interface CoinInterface {
-  id: string | undefined;
+  id?: string | undefined;
   name?: string | undefined;
   price?: number | undefined;
   current_price?: number;
@@ -60,10 +60,7 @@ function CoinCard({ coin, type, handleClose }: CoinCardProps) {
         <p className="feature-title">Name</p>
         <span className="feature-value">{coin?.name}</span>
         <p className="feature-title">Price</p>
-        <span className="feature-value">
-          {type === "allcoins" ? coin?.current_price : coin?.price}
-          {/* to mozna by uproscic tylko na price */}
-        </span>
+        <span className="feature-value">{coin?.price}</span>
         <p className="feature-title">
           {type === "allcoins"
             ? "ATH"

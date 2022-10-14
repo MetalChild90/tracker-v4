@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import isTokenWatched from "../helpers/isTokenWatched";
 
 interface CoinInterface {
-  id: string | undefined;
+  id?: string | undefined;
   name?: string | undefined;
   price?: number | undefined;
   current_price?: number;
@@ -30,7 +30,7 @@ function CoinRow({ coin }: CoinRowProps) {
       `}
     >
       <td>{coin.name}</td>
-      <td>{coin.current_price}</td>
+      <td>{coin.price}</td>
       <td>{coin.ath}</td>
       <td>
         {isTokenWatched(watchedCoins, coin.id!) ? (

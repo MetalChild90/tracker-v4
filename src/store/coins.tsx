@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface CoinInterface {
-  id: string | undefined;
+  id?: string | undefined;
   name?: string | undefined;
   price?: number | undefined;
   current_price?: number;
@@ -12,7 +12,7 @@ interface CoinInterface {
 }
 
 interface WatchedCoinsInterface {
-  id: string | undefined;
+  id?: string | undefined;
   priceTarget: number | undefined;
 }
 

@@ -3,7 +3,7 @@ import axios from "axios";
 const BASE_URL = "https://api.coingecko.com/api/v3";
 
 interface CoinInterface {
-  id: string | undefined;
+  id?: string | undefined;
   name?: string | undefined;
   price?: number | undefined;
   current_price?: number;
@@ -19,10 +19,10 @@ export const getCoins = async (currentPage: number) => {
             `);
 
     const result = res.data.map(
-      ({ id, name, current_price, ath }: CoinInterface) => ({
+      ({ id, name, current_price: price, ath }: CoinInterface) => ({
         id,
         name,
-        current_price,
+        price,
         ath,
       })
     );
@@ -50,12 +50,17 @@ export const getCoin = async (id: string) => {
     const res = await axios.get(
       `${BASE_URL}/coins/${id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`
     );
-    let result: CoinInterface = (({ id, name }) => ({
+    let result: CoinInterface = (({
       id,
       name,
+      market_data: {
+        current_price: { usd: price },
+      },
+    }) => ({
+      id,
+      name,
+      price,
     }))(res.data);
-    const price = res.data.market_data.current_price.usd;
-    result.price = price;
     return result;
   } catch (err) {
     console.log(err);

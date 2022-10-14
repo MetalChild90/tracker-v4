@@ -1,5 +1,5 @@
 interface WatchedCoinsInterface {
-  id: string | undefined;
+  id?: string | undefined;
   priceTarget: number | undefined;
 }
 
