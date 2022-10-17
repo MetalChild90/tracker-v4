@@ -1,20 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-
-interface CoinInterface {
-  id?: string | undefined;
-  name?: string | undefined;
-  price?: number | undefined;
-  current_price?: number;
-  priceTarget?: number | undefined;
-  ath?: number | undefined;
-  distancePercent?: number | undefined;
-}
-
-interface WatchedCoinsInterface {
-  id?: string | undefined;
-  priceTarget: number | undefined;
-}
+import { CoinInterface, WatchedCoinsInterface } from "../Interfaces";
 
 interface CoinsState {
   selectedCoin: CoinInterface | null;

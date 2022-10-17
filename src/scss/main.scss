@@ -1,6 +1,5 @@
 // BASE
 @import "./base/variables";
-@import "./base/mixins";
 @import "./base/reset";
 @import "./base/app";
 
@@ -12,7 +11,6 @@
 @import "./components/Footer";
 @import "./components/Pagination";
 @import "./components/SearchBox";
-@import "./components/WatchedCoinRow";
 @import "./components/Spinner";
 @import "./components/PriceTargetForm";
 

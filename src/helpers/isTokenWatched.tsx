@@ -1,7 +1,4 @@
-interface WatchedCoinsInterface {
-  id?: string | undefined;
-  priceTarget: number | undefined;
-}
+import { WatchedCoinsInterface } from "../Interfaces";
 
 const isTokenWatched = (
   watchedCoins: WatchedCoinsInterface[] | undefined,

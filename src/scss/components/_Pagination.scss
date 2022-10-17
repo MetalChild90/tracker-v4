@@ -10,27 +10,27 @@
   height: 30px;
 
   margin: 2px;
-  border: 1px solid rgb(141, 142, 201);
+  border: 1px solid $violet;
 
   text-align: center;
   line-height: 30px;
 
   font-size: 15px;
   border-radius: 5px;
-  background-color: white;
+  background-color: $white;
   transition: 0.3s;
   cursor: pointer;
 }
 
 .pagination-list-item:hover {
-  background-color: rgb(166, 167, 243);
+  background-color: $hover-violet;
 }
 
 .pagination-link {
   text-decoration: none;
-  color: black;
+  color: $black;
 }
 
 .activePage {
-  background-color: rgb(193, 207, 255);
+  background-color: $active-violet;
 }

@@ -2,12 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface PaginationState {
-  coinsPerPage: number;
   currentPage: number;
 }
 
 const initialPaginationState: PaginationState = {
-  coinsPerPage: 100,
   currentPage: 1,
 };
 

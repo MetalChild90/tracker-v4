@@ -1,17 +1,26 @@
 // COLORS
 $white: #f1f1f1;
 $black: #1b1b1b;
+$black-opacity: rgba(0, 0, 0, 0.4);
 $darker-grey: #34363b;
 $dark-grey: #3d4046;
 $lighter-dark-grey: #54575c;
-$blue: #53bbf0;
-$yellow: rgb(255, 255, 128);
+$grey: grey;
+$light-grey: lightgrey;
+$grey-opacity: rgba(211, 211, 211, 0.445);
+$red: rgba(238, 77, 77, 0.925);
+$red-opacity: rgba(255, 50, 50, 0.4);
+$orange: rgba(238, 182, 77, 0.925);
+$yellow-opacity: rgba(229, 250, 44, 0.4);
 $pink: #db45ae;
-$light-pink: #f9ceff;
-$violet: rgb(166, 167, 243);
+$violet: rgb(141, 142, 201);
+$hover-violet: rgb(166, 167, 243);
+$active-violet: rgb(193, 207, 255);
+$light-blue: rgb(211, 227, 241);
 $green: rgb(81, 155, 93);
-$green-opacity-light: rgba(104, 207, 122, 0.671);
-$green-opacity-dark: rgba(104, 207, 122, 0.671);
+$vivid-green: rgb(45, 165, 81);
+$green-opacity-light: rgba(146, 255, 164, 0.637);
+$green-opacity-dark: rgba(104, 207, 121, 0.692);
 
 //PADDING I MARGIN
 $superSmall: 5px;

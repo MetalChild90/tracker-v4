@@ -5,16 +5,8 @@ import PriceTargetForm from "./PriceTargetForm";
 import isTokenWatched from "../helpers/isTokenWatched";
 import { layoutActions } from "../store/layout";
 import { coinsActions } from "../store/coins";
-
-interface CoinInterface {
-  id?: string | undefined;
-  name?: string | undefined;
-  price?: number | undefined;
-  current_price?: number;
-  priceTarget?: number | undefined;
-  ath?: number | undefined;
-  distancePercent?: number | undefined;
-}
+import { CoinInterface } from "../Interfaces";
+import { scientificToDecimal } from "../helpers/currencyHelper";
 
 interface CoinCardProps {
   coin: CoinInterface;
@@ -24,15 +16,13 @@ interface CoinCardProps {
 
 function CoinCard({ coin, type, handleClose }: CoinCardProps) {
   const dispatch = useAppDispatch();
-  const editMode = useAppSelector((state: RootState) => state.coins.editMode);
-  const watchedCoins = useAppSelector(
-    (state: RootState) => state.coins.watchedCoins
-  );
-  const selectedCoin = useAppSelector(
-    (state: RootState) => state.coins.selectedCoin
+  const { editMode, watchedCoins, selectedCoin } = useAppSelector(
+    (state: RootState) => state.coins
   );
 
-  const handleMoreCoinInfo = () => {
+  console.log(selectedCoin);
+
+  const handleCoinActiveButtons = () => {
     dispatch(layoutActions.openModal());
     dispatch(coinsActions.setSelectedCoin(coin));
   };
@@ -41,26 +31,30 @@ function CoinCard({ coin, type, handleClose }: CoinCardProps) {
     <div
       className={`coin-box 
     ${
-      isTokenWatched(watchedCoins, coin?.id!) &&
+      isTokenWatched(watchedCoins, coin.id!) &&
       type === "allcoins" &&
       "isWatched"
     } ${
-        coin?.distancePercent! >= 0
+        coin.distancePercent! >= 0
           ? "target-hitted"
-          : coin?.distancePercent! >= -10
+          : coin.distancePercent! >= -10
           ? "alert-zone"
           : ""
       }
-    `}
+        `}
     >
       <div className="info-box">
-        <span onClick={handleClose} className="close-selected-box">
-          &times;
-        </span>
+        {type !== "watched" && (
+          <span onClick={handleClose} className="close-selected-box">
+            &times;
+          </span>
+        )}
         <p className="feature-title">Name</p>
-        <span className="feature-value">{coin?.name}</span>
+        <span className="feature-value">{coin.name}</span>
         <p className="feature-title">Price</p>
-        <span className="feature-value">{coin?.price}</span>
+        <span className="feature-value">
+          {scientificToDecimal(coin.price!) + "$"}
+        </span>
         <p className="feature-title">
           {type === "allcoins"
             ? "ATH"
@@ -74,12 +68,12 @@ function CoinCard({ coin, type, handleClose }: CoinCardProps) {
         </p>
         <span className="feature-value">
           {type === "allcoins" ? (
-            coin?.ath
+            coin.ath
           ) : type === "selected" ||
             (editMode && selectedCoin?.id === coin.id) ? (
             <PriceTargetForm type={type} />
           ) : type === "watched" ? (
-            coin?.priceTarget
+            scientificToDecimal(coin.priceTarget!) + "$"
           ) : (
             ""
           )}
@@ -87,7 +81,7 @@ function CoinCard({ coin, type, handleClose }: CoinCardProps) {
         {type === "watched" && (
           <>
             <p className="feature-title">Distance</p>
-            <span className="feature-value">{coin?.distancePercent}%</span>
+            <span className="feature-value">{coin.distancePercent}%</span>
           </>
         )}
       </div>
@@ -96,12 +90,12 @@ function CoinCard({ coin, type, handleClose }: CoinCardProps) {
           (isTokenWatched(watchedCoins, coin.id!) ? (
             "Already on the list"
           ) : (
-            <Link to={`/selected-coin/${coin?.id}`}>
+            <Link to={`/selected-coin/${coin.id}`}>
               <button className="btn list-item-button">Select</button>
             </Link>
           ))}
         {type === "watched" && !editMode && (
-          <button onClick={handleMoreCoinInfo} className="btn">
+          <button onClick={handleCoinActiveButtons} className="btn">
             More
           </button>
         )}

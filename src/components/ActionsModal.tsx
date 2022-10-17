@@ -5,11 +5,8 @@ import { layoutActions } from "../store/layout";
 
 function ActionsModal() {
   const dispatch = useAppDispatch();
-  const watchedCoins = useAppSelector(
-    (state: RootState) => state.coins.watchedCoins
-  );
-  const selectedCoin = useAppSelector(
-    (state: RootState) => state.coins.selectedCoin
+  const { watchedCoins, selectedCoin } = useAppSelector(
+    (state: RootState) => state.coins
   );
 
   const closeModalHandler = () => {

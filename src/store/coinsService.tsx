@@ -1,16 +1,7 @@
 import axios from "axios";
+import { CoinInterface } from "../Interfaces";
 
 const BASE_URL = "https://api.coingecko.com/api/v3";
-
-interface CoinInterface {
-  id?: string | undefined;
-  name?: string | undefined;
-  price?: number | undefined;
-  current_price?: number;
-  priceTarget?: number | undefined;
-  ath?: number | undefined;
-  distancePercent?: number | undefined;
-}
 
 export const getCoins = async (currentPage: number) => {
   try {

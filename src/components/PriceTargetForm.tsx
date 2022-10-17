@@ -3,11 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../hooks/typescriptHooks";
 import type { RootState } from "../store/index";
 import { coinsActions } from "../store/coins";
-
-interface WatchedCoinsInterface {
-  id?: string | undefined;
-  priceTarget: number | undefined;
-}
+import { WatchedCoinsInterface } from "../Interfaces";
 
 interface CoinRowProps {
   type?: string;
@@ -15,31 +11,40 @@ interface CoinRowProps {
 
 function PriceTargetForm({ type }: CoinRowProps) {
   const dispatch = useAppDispatch();
-  const editMode = useAppSelector((state: RootState) => state.coins.editMode);
-  const watchedCoins = useAppSelector(
-    (state: RootState) => state.coins.watchedCoins
-  );
-  const selectedCoin = useAppSelector(
-    (state: RootState) => state.coins.selectedCoin
+  const { editMode, watchedCoins, selectedCoin } = useAppSelector(
+    (state: RootState) => state.coins
   );
 
-  const [priceTarget, setPriceTarget] = useState<number | undefined>(0);
+  const [priceTarget, setPriceTarget] = useState<string>("");
   const [priceTargetErrorNotification, setPriceTargetErrorNotification] =
     useState("");
 
   const navigate = useNavigate();
 
+  let typedValue = "";
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPriceTarget(+e.target.value);
+    setPriceTarget(e.target.value);
+    typedValue += e.target.value.trim().toString();
+    if (!typedValue.includes(".")) {
+      let result = typedValue.replace(/^(?:0+(?=[1-9])|0+(?=0$))/gm, "");
+      setPriceTarget(result);
+    } else {
+      let parts = typedValue.split(".");
+      let partOne = parts[0].replace(/^(?:0+(?=[1-9])|0+(?=0$))/gm, "");
+      let completeNumber = partOne + "." + parts[1];
+      setPriceTarget(completeNumber);
+    }
   };
 
   useEffect(() => {
-    setPriceTarget(selectedCoin?.priceTarget);
+    const target = String(selectedCoin?.priceTarget!);
+    setPriceTarget(target);
   }, [editMode, selectedCoin?.priceTarget]);
 
   const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (priceTarget! <= 0 || isNaN(priceTarget!)) {
+    const target = parseFloat(priceTarget);
+    if (target! <= 0 || isNaN(target!)) {
       setPriceTargetErrorNotification("Price target can't be 0");
       return;
     } else {
@@ -47,14 +52,14 @@ function PriceTargetForm({ type }: CoinRowProps) {
         const updatedWatchedCoins: WatchedCoinsInterface[] = watchedCoins!.map(
           (coin) =>
             coin.id === selectedCoin!.id
-              ? { ...selectedCoin, priceTarget }
+              ? { ...selectedCoin, priceTarget: target }
               : coin
         );
         dispatch(coinsActions.saveEdition(updatedWatchedCoins));
       } else {
         const newWatchedCoin = {
           id: selectedCoin!.id,
-          priceTarget: priceTarget,
+          priceTarget: target,
         };
         const appendedWatchedCoins = watchedCoins?.concat(newWatchedCoin);
         dispatch(coinsActions.addToWatchedList(appendedWatchedCoins));
@@ -72,10 +77,7 @@ function PriceTargetForm({ type }: CoinRowProps) {
 
   return (
     <div className="price-target-form">
-      <form
-        style={{ flexDirection: !editMode ? "row" : "column" }}
-        onSubmit={handleSave}
-      >
+      <form onSubmit={handleSave}>
         <input
           maxLength={12}
           onInput={maxLengthCheck}
@@ -86,13 +88,13 @@ function PriceTargetForm({ type }: CoinRowProps) {
         />
 
         {type === "selected" && !editMode && (
-          <button type="submit" className="btn ml">
+          <button type="submit" className="btn">
             Watch
           </button>
         )}
         {editMode && (
           <div>
-            <button type="submit" className="btn btn-save mt ml">
+            <button type="submit" className="btn btn-save">
               Save
             </button>
             <button

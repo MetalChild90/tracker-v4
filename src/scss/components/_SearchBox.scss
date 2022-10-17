@@ -41,7 +41,7 @@
 
 .button.search-button {
   color: $black;
-  box-shadow: 1px 5px 5px -5px rgba(66, 68, 90, 1);
+  box-shadow: 1px 5px 5px -5px $darker-grey;
 }
 
 .hints-box {
@@ -62,5 +62,11 @@
   padding: $superSmall $small;
   text-align: left;
   color: $black;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid $black;
+  transition: $trd;
+  cursor: pointer;
+}
+
+.hint:hover {
+  background-color: $green-opacity-light;
 }

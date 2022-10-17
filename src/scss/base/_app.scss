@@ -29,6 +29,10 @@ body {
 
 .box-beneath-header {
   height: 100px;
+
+  @media (max-width: 768px) {
+    height: 40px;
+  }
 }
 
 .btn {
@@ -37,25 +41,25 @@ body {
   border: 1px solid $black;
   border-radius: $brrSmall;
   font-size: 14px;
-  background-color: aliceblue;
+  background-color: $light-blue;
   transition: $trd;
   color: $black;
   cursor: pointer;
 }
 
 .btn-delete {
-  background-color: rgba(238, 77, 77, 0.925);
+  background-color: $red;
 }
 
 .btn-discard {
-  background-color: rgba(238, 182, 77, 0.925);
+  background-color: $orange;
   @media (min-width: 992px) {
     font-size: 10px;
   }
 }
 
 .btn-save {
-  background-color: rgb(45, 165, 81);
+  background-color: $vivid-green;
   @media (min-width: 992px) {
     font-size: 10px;
   }
@@ -66,7 +70,7 @@ body {
 }
 
 .btn:hover {
-  background-color: rgb(211, 227, 241);
+  background-color: $light-blue;
 }
 
 .title {
@@ -110,7 +114,7 @@ table {
 th,
 td {
   height: 50px;
-  border-bottom: 1px solid rgba(211, 211, 211, 0.445);
+  border-bottom: 1px solid $grey-opacity;
 }
 
 td {

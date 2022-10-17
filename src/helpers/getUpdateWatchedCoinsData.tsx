@@ -1,20 +1,6 @@
-import { getCoin } from "../AppActions";
+import { getCoin } from "../store/coinsService";
 import calculatePercent from "./calculatePercent";
-
-interface WatchedCoinsInterface {
-  id?: string | undefined;
-  priceTarget: number | undefined;
-}
-
-interface CoinInterface {
-  id?: string | undefined;
-  name?: string | undefined;
-  price?: number | undefined;
-  current_price?: number;
-  priceTarget?: number | undefined;
-  ath?: number | undefined;
-  distancePercent?: number | undefined;
-}
+import { WatchedCoinsInterface } from "../Interfaces";
 
 const getUpdateWatchedCoinsData = async (
   watchedCoins: WatchedCoinsInterface[] | undefined

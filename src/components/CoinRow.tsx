@@ -1,17 +1,9 @@
 import { useAppSelector } from "../hooks/typescriptHooks";
 import type { RootState } from "../store/index";
+import { CoinInterface } from "../Interfaces";
 import { Link } from "react-router-dom";
+import { scientificToDecimal } from "../helpers/currencyHelper";
 import isTokenWatched from "../helpers/isTokenWatched";
-
-interface CoinInterface {
-  id?: string | undefined;
-  name?: string | undefined;
-  price?: number | undefined;
-  current_price?: number;
-  priceTarget?: number | undefined;
-  ath?: number | undefined;
-  distancePercent?: number | undefined;
-}
 
 interface CoinRowProps {
   coin: CoinInterface;
@@ -30,8 +22,8 @@ function CoinRow({ coin }: CoinRowProps) {
       `}
     >
       <td>{coin.name}</td>
-      <td>{coin.price}</td>
-      <td>{coin.ath}</td>
+      <td>{scientificToDecimal(coin.price!) + "$"}</td>
+      <td>{scientificToDecimal(coin.ath!) + "$"}</td>
       <td>
         {isTokenWatched(watchedCoins, coin.id!) ? (
           "Already on the list"

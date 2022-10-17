@@ -2,23 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../hooks/typescriptHooks";
 import type { RootState } from "../store/index";
+import { CoinInterface } from "../Interfaces";
 import capitalizeToken from "../helpers/capitalizeToken";
 import isTokenWatched from "../helpers/isTokenWatched";
 
-interface CoinInterface {
-  id?: string | undefined;
-  name?: string | undefined;
-  price?: number | undefined;
-  current_price?: number;
-  priceTarget?: number | undefined;
-  ath?: number | undefined;
-  distancePercent?: number | undefined;
-}
-
 function SearchBox() {
-  const allCoins = useAppSelector((state: RootState) => state.coins.allCoins);
-  const watchedCoins = useAppSelector(
-    (state: RootState) => state.coins.watchedCoins
+  const { allCoins, watchedCoins } = useAppSelector(
+    (state: RootState) => state.coins
   );
 
   const [typedCoin, setTypedCoin] = useState("");
@@ -36,7 +26,7 @@ function SearchBox() {
   };
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const typedName = e.target.value;
+    const typedName = e.target.value.trim();
     setTypedCoin(typedName);
     lookForSimilar(typedName);
     if (e.target.value === "") {
@@ -45,9 +35,11 @@ function SearchBox() {
   }
 
   function validateToken(token: string) {
+    console.log(token);
     setHints([]);
 
     const capitalizedToken = capitalizeToken(token);
+    setTypedCoin(capitalizeToken);
 
     const isTokenExist = allCoins!.filter(
       (coin) => coin.name === capitalizedToken
@@ -65,6 +57,7 @@ function SearchBox() {
         "You already have this token in your watchlist, choose another one"
       );
     } else if (isTokenExist.length > 0) {
+      console.log("work");
       setTypedCoin("");
       setTextNotification("");
       navigate(`/selected-coin/${tokenId}`);
@@ -75,7 +68,7 @@ function SearchBox() {
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {
-      validateToken(typedCoin);
+      validateToken(typedCoin.trim());
     }
   }
 
@@ -105,7 +98,7 @@ function SearchBox() {
         </div>
         <span
           className="btn search-button"
-          onClick={() => validateToken(typedCoin)}
+          onClick={() => validateToken(typedCoin.trim())}
         >
           Search
         </span>

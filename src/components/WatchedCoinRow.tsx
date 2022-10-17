@@ -3,17 +3,9 @@ import { useAppSelector, useAppDispatch } from "../hooks/typescriptHooks";
 import type { RootState } from "../store/index";
 import { layoutActions } from "../store/layout";
 import { coinsActions } from "../store/coins";
+import { CoinInterface } from "../Interfaces";
 import PriceTargetForm from "./PriceTargetForm";
-
-interface CoinInterface {
-  id?: string | undefined;
-  name?: string | undefined;
-  price?: number | undefined;
-  current_price?: number;
-  priceTarget?: number | undefined;
-  ath?: number | undefined;
-  distancePercent?: number | undefined;
-}
+import { scientificToDecimal } from "../helpers/currencyHelper";
 
 interface CoinRowProps {
   coin: CoinInterface;
@@ -21,9 +13,8 @@ interface CoinRowProps {
 
 function WatchedCoinRow({ coin }: CoinRowProps) {
   const dispatch = useAppDispatch();
-  const editMode = useAppSelector((state: RootState) => state.coins.editMode);
-  const selectedCoin = useAppSelector(
-    (state: RootState) => state.coins.selectedCoin
+  const { editMode, selectedCoin } = useAppSelector(
+    (state: RootState) => state.coins
   );
 
   const handleClick = () => {
@@ -43,12 +34,12 @@ function WatchedCoinRow({ coin }: CoinRowProps) {
       key={coin.id}
     >
       <td>{coin.name}</td>
-      <td>{coin.price}</td>
+      <td>{scientificToDecimal(coin.price!) + "$"}</td>
       <td>
         {editMode && coin.id === selectedCoin?.id ? (
           <PriceTargetForm />
         ) : (
-          coin.priceTarget + "$"
+          scientificToDecimal(coin.priceTarget!) + "$"
         )}
       </td>
       <td>{coin.distancePercent}%</td>

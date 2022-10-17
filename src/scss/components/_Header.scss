@@ -70,9 +70,9 @@
       top: 0;
       right: -230px;
 
-      background-color: lightgray;
+      background-color: $light-grey;
 
-      border: 1px solid grey;
+      border: 1px solid $grey;
       border-radius: 0 0 0 $brrSmall;
 
       transition: $trd;
@@ -97,7 +97,7 @@
       & .close-menu-icon {
         position: absolute;
         top: 10px;
-        right: 10px;
+        left: 10px;
         font-size: 25px;
         color: $black;
 

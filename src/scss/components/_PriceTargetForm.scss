@@ -1,20 +1,26 @@
 .price-target-form {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-
+  @media (min-width: 992px) {
+    justify-content: center;
+  }
   & form {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     @media (min-width: 992px) {
       flex-direction: row;
+      align-items: center;
+      justify-content: center;
     }
 
     & input {
       max-width: 200px;
-      align-self: center;
+      margin-top: $superSmall;
+      margin-bottom: $superSmall;
 
       @media (min-width: 992px) {
-        height: 30px;
+        margin-right: $superSmall;
       }
     }
   }

@@ -9,22 +9,13 @@ import Spinner from "../components/Spinner";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import getUpdateWatchedCoinsData from "../helpers/getUpdateWatchedCoinsData";
 
-interface CoinInterface {
-  id?: string | undefined;
-  name?: string | undefined;
-  price?: number | undefined;
-  current_price?: number;
-  priceTarget?: number | undefined;
-  ath?: number | undefined;
-  distancePercent?: number | undefined;
-}
+import { CoinInterface } from "../Interfaces";
 
 function WatchedCoins() {
   const dispatch = useAppDispatch();
-  const watchedCoins = useAppSelector(
-    (state: RootState) => state.coins.watchedCoins
+  const { watchedCoins, loading } = useAppSelector(
+    (state: RootState) => state.coins
   );
-  const loading = useAppSelector((state: RootState) => state.coins.loading);
   const openModal = useAppSelector(
     (state: RootState) => state.layout.openModal
   );

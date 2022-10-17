@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { coinsActions } from "./store/coins";
 import { useDispatch } from "react-redux";
-import { getAllCoins } from "./AppActions";
+import { getAllCoins } from "./store/coinsService";
 import { useEffect } from "react";
 import Coins from "./pages/Coins";
 import WatchedCoins from "./pages/WatchedCoins";

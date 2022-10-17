@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { getCoins } from "../AppActions";
+import { getCoins } from "../store/coinsService";
 import { useAppSelector, useAppDispatch } from "../hooks/typescriptHooks";
 import type { RootState } from "../store/index";
 import { coinsActions } from "../store/coins";
@@ -11,8 +11,7 @@ import Spinner from "../components/Spinner";
 
 function Coins() {
   const dispatch = useAppDispatch();
-  const loading = useAppSelector((state: RootState) => state.coins.loading);
-  const coins = useAppSelector((state: RootState) => state.coins.coins);
+  const { coins, loading } = useAppSelector((state: RootState) => state.coins);
   const currentPage = useAppSelector(
     (state: RootState) => state.pagination.currentPage
   );
