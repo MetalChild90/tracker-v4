@@ -26,7 +26,7 @@ function SearchBox() {
   };
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const typedName = e.target.value.trim();
+    const typedName = e.target.value;
     setTypedCoin(typedName);
     lookForSimilar(typedName);
     if (e.target.value === "") {
@@ -38,8 +38,9 @@ function SearchBox() {
     console.log(token);
     setHints([]);
 
-    const capitalizedToken = capitalizeToken(token);
-    setTypedCoin(capitalizeToken);
+    const capitalizedToken = capitalizeToken(token).trim();
+    console.log("capitalizeToken" + " " + capitalizedToken);
+    setTypedCoin(capitalizedToken);
 
     const isTokenExist = allCoins!.filter(
       (coin) => coin.name === capitalizedToken
