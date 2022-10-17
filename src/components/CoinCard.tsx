@@ -20,8 +20,6 @@ function CoinCard({ coin, type, handleClose }: CoinCardProps) {
     (state: RootState) => state.coins
   );
 
-  console.log(selectedCoin);
-
   const handleCoinActiveButtons = () => {
     dispatch(layoutActions.openModal());
     dispatch(coinsActions.setSelectedCoin(coin));

@@ -3,7 +3,6 @@ const capitalize = (tokenName: string) => {
 };
 
 const capitalizedToken = (tokenName: string) => {
-  console.log(tokenName);
   if (!tokenName.includes(" ")) {
     return capitalize(tokenName);
   } else {
@@ -21,7 +20,6 @@ const capitalizedToken = (tokenName: string) => {
         fullName += capitalize(part + " ");
       }
     }
-    console.log(`Fullname${fullName}`);
     return fullName;
   }
 };

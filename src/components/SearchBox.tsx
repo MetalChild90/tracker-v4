@@ -35,22 +35,17 @@ function SearchBox() {
   }
 
   function validateToken(token: string) {
-    console.log(token);
     setHints([]);
 
     const capitalizedToken = capitalizeToken(token).trim();
-    console.log("capitalizeToken" + " " + capitalizedToken);
     setTypedCoin(capitalizedToken);
 
     const isTokenExist = allCoins!.filter(
       (coin) => coin.name === capitalizedToken
     );
-    console.log(isTokenExist);
     const tokenId = isTokenExist[0]?.id;
-    console.log(tokenId);
 
     const isWatched = isTokenWatched(watchedCoins, tokenId!);
-    console.log(isWatched);
     if (typedCoin === "") {
       setTextNotification("Please, enter name of the coin");
     } else if (isWatched) {
@@ -58,7 +53,6 @@ function SearchBox() {
         "You already have this token in your watchlist, choose another one"
       );
     } else if (isTokenExist.length > 0) {
-      console.log("work");
       setTypedCoin("");
       setTextNotification("");
       navigate(`/selected-coin/${tokenId}`);

@@ -16,15 +16,10 @@ function SelectedCoin() {
   const params = useParams();
   const navigate = useNavigate();
 
-  console.log(params.id);
-
   useEffect(() => {
-    console.log("uE work");
     const fetchCoin = async () => {
-      console.log("Selected work");
       dispatch(coinsActions.setLoading());
       const coin = await getCoin(params.id!);
-      console.log(coin);
       dispatch(coinsActions.setSelectedCoin(coin!));
     };
 

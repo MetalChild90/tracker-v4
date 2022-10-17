@@ -21,7 +21,6 @@ function ActionsModal() {
     const newWatchedCoins = watchedCoins!.filter(
       (coin) => coin.id !== selectedCoin!.id
     );
-    console.log(newWatchedCoins);
     dispatch(coinsActions.deleteCoin(newWatchedCoins));
   };
 
